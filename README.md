@@ -10,8 +10,9 @@ Description:
 There are 3 main users in the application, the car owner, the admin and the customer. The admin will act as a middle man between the car owner and the customer, and their task will be to verify both parties involved and to handle all the logistics involved between them. 
 Actors/System User(s):
 1.	Admin.
-2.	 Car Owner.
+2.	Car Owner.
 3.	Customer.
+
 List of Features:
 1.	CAR OWNER:  
 •	Account to login, if he is already registered, otherwise login with ID and password.
@@ -29,16 +30,17 @@ List of Features:
 •	Will act as an intermediary between Car Owner and User.
 
 
-      3.User:
+3.    USER:
 •	Will register and provide information for first time, otherwise log in and password.
 •	Time when car checked out
 •	Modes of booking. 
-A.	Emergency booking
-B.	Normal booking 
+      A.	Emergency booking
+      B.	Normal booking 
 •	Will specify time for booking, if time is above a certain period, discounts will be provided accordingly.
 •	Modes of payment. Card or Cash.
 •	Print receipt whose details will be passed along to admin and car owner.
-•	
+
+
 Tools & Techniques:
 The language used will be C and for IDE Visual Studio 2019 will primarily be used. Filing will be used in order to store the data.
 Schedule:
