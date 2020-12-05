@@ -121,7 +121,11 @@ int main()
 	
 	char a[100],b[100];
 	system("cls");
-	printf("\t\t\t\t\tWheels For Wheels!\n");
+	printf("\t\t\t\t\tCar Rental System\n");
+	printf("\t\t\t\t\t----------------\n");
+	printf("\t\t\t\t\t      Login\n");
+	printf("\t\t\t\t\t-----------------");
+
 	printf("\n");
 	sleep(2);
 	printf("\t\t\t\tPress 1 if you want to register \n\t\t\t\tPress 2 if if you want to login :");
@@ -153,7 +157,7 @@ int main()
 			{
 				if(strcmp(b,pass)==0)
 				{
-					printf("\t\t\t\tWeclcome %s\n",email);
+					printf("\t\t\t\tWelcome %s\n",email);
 					sleep(3);
 					
 					system("cls");
