@@ -10,9 +10,9 @@ int login(){
      char *email[100]={"admin1","admin2","admin3"};
      char *pass[100]={"1","2","3"};
     for (j=0;j<3;j++){
-         printf("Enter email: ");
+         printf("Enter your email: ");
     gets(adminemail);
-    printf("Enter password: ");
+    printf("Enter your password: ");
     gets(adminpass);
     for (i=0;i<3;i++){
         if (strcmp(adminemail,email[i])==0){
