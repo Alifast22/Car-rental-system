@@ -5,14 +5,20 @@
 #include <unistd.h> 
 int login(){
     char adminemail[100],adminpass[100];
-        
+        printf("\t\t\t\t\tCar Rental System\n");
+	printf("\t\t\t\t\t----------------\n");
+	printf("\t\t\t\t\t      Login\n");
+	printf("\t\t\t\t\t-----------------");
+
+	printf("\n");
+	sleep(2);
     int i,j;
      char *email[100]={"admin1","admin2","admin3"};
      char *pass[100]={"1","2","3"};
     for (j=0;j<3;j++){
-         printf("Enter your email: ");
+         printf("\t\t\t\t\tEnter email: ");
     gets(adminemail);
-    printf("Enter your password: ");
+    printf("\t\t\t\t\tEnter password: ");
     gets(adminpass);
     for (i=0;i<3;i++){
         if (strcmp(adminemail,email[i])==0){
