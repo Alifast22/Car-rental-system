@@ -7,7 +7,7 @@ int card(int price)
 {
   char cardno[100];
   int i=0,c=0;
-  printf("Enter your card no");
+  printf("Enter your card no: ");
   scanf("%s",&cardno);
   for(i=0;i<strlen(cardno);i++)
   {
