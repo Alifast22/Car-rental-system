@@ -1,8 +1,4 @@
-# Car-rental-system
-This project will be submitted as partial requirement for the course Programming Fundamentals in fall 2020.
-Member 1: Khwaja Faraz Ahmed 20K-0121
-Member 2: Muhammad Ali 20K-0334
-Member 3: Syed Muhammad Ibad Zaidi 20K-0152       
+# Car-rental-system      
 _____________________________________________________________________________________
 Goal:
 A platform which will provide a gateway for car owners aiming to rent out their cars to potential customers who are looking to rent cars for a certain amount of time.
@@ -45,11 +41,4 @@ List of Features:
 
 Tools & Techniques:
 The language used will be C and for IDE Visual Studio 2019 will primarily be used. Filing will be used in order to store the data.
-Schedule:
-To be submitted one week before the final exam of the fall 2020 semester.
 
-
-3.	Accept 
-4.	Reject 
-
-Course Teacher: Basit Ali/Humza/Anaum/Kariz Signature
