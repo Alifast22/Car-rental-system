@@ -303,7 +303,7 @@ int main()
 	printf("\n");
 	sleep(2);
 	int num,i,flag=0;
-	char email[100]={"m.ali"},pass[100]={"ali22"};
+	char email[100]={"m.ali"},pass[100]={"ali22"},name[100]={"ali"};
 	char a[100],b[100];
 	printf("\t\t\t\tPress 1 For Signup\n");
 	printf("\t\t\t\tPress 2 For Login\n");
@@ -318,6 +318,8 @@ int main()
 	case 1:
 		
 		printf("Please fill in the information to get registered\n");
+		printf("Enter your name: ");
+		gets(name);
 		printf("Enter email address:");
 		gets(email);
 		printf("Enter password:");
@@ -341,7 +343,7 @@ int main()
 			{
 				if(strcmp(b,pass)==0)
 				{
-					printf("Welcome %s\n",email);
+					printf("Welcome %s\n",name);
 					 flag=1;
 					sleep(1);
 					printf("Loading Booking Menu...");
