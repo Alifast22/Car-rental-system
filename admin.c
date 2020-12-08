@@ -43,8 +43,8 @@ int login(){
 }
 int main(){
     system("cls");
-   int access= login();
-   if (access==1){
-       // do admin work
+   if (login()!=1){
+       printf("\nAccess not granted :(");
+       exit(0);
    }
     }
