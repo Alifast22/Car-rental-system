@@ -271,6 +271,7 @@ if(x==0)
 	{
 	 printf("No cars found,Returning to mainscreen.......");
 	 sleep(2);
+	 main();
 	}
 }
 void Modelbrowseearliesttorecent(char choice[])
@@ -298,7 +299,8 @@ ptr=fopen("owner.bin","rb");
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
 	 int x=0;
-	for (int j=0;j<count;j++)
+	 int j;
+	for (j=0;j<count;j++)
 	{
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.mnum&&strcmp(choice,read.purpose)==0&&read.flag==0){
@@ -344,7 +346,8 @@ void Modelbrowserecenttoearliest(char choice[])
 	 sorthightolow(sorted,count);
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.mnum&&strcmp(choice,read.purpose)==0&&read.flag==0){
 			x=printstation(read);
@@ -387,7 +390,8 @@ void SeatingcapacityLowesttoHighest(char choice[])
 	 sortlowtohigh(sorted,count);
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.seats&&strcmp(read.purpose,choice)==0&&read.flag==0)
 			{
@@ -438,7 +442,8 @@ void Seatingcapacityhighesttolowest(char choice[])
 	 sorthightolow(sorted,count);
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.seats&&strcmp(choice,read.purpose)==0&&read.flag==0){
 				x=printstation(read);
@@ -482,7 +487,8 @@ FILE* ptr;
 	 sortlowtohigh(sorted,count);
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.price&&strcmp(choice,read.purpose)==0&&read.flag==0){
 			printf("CarID: %d\t ",read.CID);
@@ -532,7 +538,8 @@ void pricelowtohigh(char choice[])
 	 sortlowtohigh(sorted,count);
 	 removeduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 		
 			if(sorted[i]==read.price&&strcmp(read.purpose,choice)==0&&read.flag==0)
@@ -584,7 +591,8 @@ void Reviews(char choice[])
 	 reviewhightolow(sorted,count);
 	 reviewremoveduplicate(sorted,count);
 	 fseek(ptr,0,SEEK_SET);
-	for (int j=0;j<count;j++){
+	 int j;
+	for (j=0;j<count;j++){
 	while(fread(&read,sizeof(struct co_info),1,ptr)){
 			if(sorted[i]==read.review&&strcmp(choice,read.purpose)==0&&read.flag==0){
 			x=printstation(read);
@@ -646,7 +654,9 @@ int card(int price)
   }
   printf("\nAmount to be withdrawed from your account is %d",price);
 }
-int payment (int price){
+int payment (int price)
+{
+	
 	int mode,cash;
 	
   printf("\t\t\t\t Checkout");
@@ -668,11 +678,14 @@ int payment (int price){
 	  	 {
 	  	  printf("change returned is %d\n",cash-price);
 		   }
-		else 
+		else {
 		printf("Insufficient money entered");
+		printf("\nre-directing to mainpage...");
+		sleep(2);
+		main();
 		return 0;
 		break;
-		  }
+		  }}
 	}
 }
 int Buy(struct User pass,int days,int price,char choice[])
@@ -721,6 +734,7 @@ int Buy(struct User pass,int days,int price,char choice[])
  	   	 sleep(2);
  	   	 printf("Congratulations your order has been confirmed!\n");
  	   	 printf("You will now be guided towards our Invoice and Payment Details Area");
+		sleep(2);
 		FILE *fr;
 		fr=fopen("owner.bin","rb+");
 		struct co_info read;
@@ -1141,7 +1155,7 @@ int preference(int i)
 		 system("cls");
 		 printf("\t\t\tInvalid Character Entered");
 		 int y;
-		 printf("\nEnter 1 if you want to enter another number\nEnter any other number if you want to exit. ");
+		 printf("\nEnter any  number to exit. ");
 		 scanf("%d",&y);
 		 switch(y)
 		 {
@@ -1206,82 +1220,238 @@ displaycarowner(){
     FILE *fp;
     fp=fopen("owner.bin","rb");
     struct co_info cread;
-    printf("\nName\t\tCar\t\tModel\tSeating Capacity\tPrice\tPurpose\t   Rent Count\n");
+    printf("Please specify the domain you want to see the carowners from,that is :\n1)For every day use\n2)for wedding purpose\n3)for long drive\n4)All Domains \n5)To enter a particular carowner ID you want to see\nKindly enter enter the purpose from above mentioned options only .\n");
+   char k;
+   int ID;
+   scanf(" %c",&k);
+   char choice[10];
+   if(k=='1')
+   {
+   strcpy(choice,"Everyday");
+   }
+  else if(k=='2')
+  {
+  strcpy(choice,"Wedding");
+  }
+  else if(k=='3')
+  {
+  strcpy(choice,"Long Drive");
+  }
+  else if(k=='4')
+  {
+   //do nothing will print normally
+  } 
+  else if(k=='5')
+  {
+   printf("Enter Carowner ID:  ");
+   scanf("%d",&ID);
+  }
+  else
+  {
+  printf("Invalid character entered\n");
+  printf("Returning to main menu.....\n");
+  sleep(2);
+  main();
+  }
+  
     while(fread(&cread,sizeof(struct co_info),1,fp)){
-        
-        printf("%s   %s\t %d \t\t%d\t\t%d\t %s\t %d\n",cread.cname,cread.carname,cread.mnum,cread.seats,cread.price,cread.purpose,cread.rcount);
+    	if ((k!='4'||k!='5')&&cread.rcount!=-1&&strcmp(choice,cread.purpose)==0)
+       {printf("ID:---%d\nName:---%s\nCar Name:-----%s\nPreference:----%s\nAmount Per Day:---%d\nRides Done:--%d\n",cread.ID,cread.cname,cread.carname,cread.purpose,cread.price,cread.rcount);
+        printf("\n\n");
     }
+    else if(k=='4'&&cread.rcount!=-1)
+    {
+	printf("ID:---%d\nName:---%s\nCar Name:-----%s\nPreference:----%s\nAmount Per Day:---%d\nRides Done:--%d\n",cread.ID,cread.cname,cread.carname,cread.purpose,cread.price,cread.rcount);
+    printf("\n\n");
+    }
+    else if(k=='5'&&cread.ID==ID&&cread.rcount!=-1)
+    {
+    	printf("ID:---%d\nName:---%s\nCar Name:-----%s\nPreference:----%s\nAmount Per Day:---%d\nRides Done:--%d\n",cread.ID,cread.cname,cread.carname,cread.purpose,cread.price,cread.rcount);
+	    break;
+	}
+    }
+    
+   
+     fclose(fp);
 
 }
 displayusers(){
     system("cls");
      FILE* fp;
    fp=fopen("user.bin","rb");
-	struct User read;
+	struct User uread;
 	int count=1;
-	while(fread(&read,sizeof(struct User),1,fp)){
-        if (read.cancel==0){
+	int k;
+    printf("Please specify the domain you want to see the users from,that is :\n1)For every day use\n2)for wedding purpose\n3)for long drive\n4)All Domains \n5)To enter a particular userID you want to see\nKindly enter enter the purpose from above mentioned options only .\n");
+  scanf(" %d",&k);
+  int ID;
+  char choice[10];
+  if(k==1)
+  {
+  strcpy(choice,"Everyday");
+  }
+  else if(k==2)
+  {
+  strcpy(choice,"Wedding");
+  }
+  else if(k==3)
+  {
+  strcpy(choice,"Long Drive");
+  }
+  else if(k==4)
+  {
+   //do nothing will print normally
+  }
+  else if(k==5) 
+  {
+   
+   printf("Enter User ID:  ");
+   scanf("%d",&ID);
+  }
+  else
+  {
+  printf("Invalid character entered\n");
+  printf("Returning to main menu.....\n");
+  sleep(2);
+  main();
+  }
+	while(fread(&uread,sizeof(struct User),1,fp)){
+		
+        if ((k!=4||k!=5)&&uread.cancel==0&&strcmp(choice,uread.preference)==0)
+		{
 
         printf("\nPrinting User %d:\n",count);
-		printf(" ID:---%d\n Name:---%s\n Email:----%s\n Mode:-----%s\n Preference:----%s\n Amount:---%d\n Booking time:--%s",read.ID,read.username,read.useremail,read.bookingmode,read.preference,read.amountpaid,read.time);
-		count++;}	
-	}
-	fclose(fp);
+		printf("UserID:--%d\nCarID:---%d\nName:---%s\n Email:----%s\n  Mode:-----%s\n Preference:----%s\n Amount:---%d\n Booking time:--%s",uread.ID,uread.CID,uread.username,uread.useremail,uread.bookingmode,uread.preference,uread.amountpaid,uread.time);
+		printf("Your commission is %f",0.2*uread.amountpaid);
+		if(uread.amountpaid==0)
+		{
+		 printf("\nThis user currently has no rides in progress");
+		}
+		printf("\n\n");
+        count++;
+		}	
+		 if (k==4&&uread.cancel==0)
+        {
+
+        printf("\nPrinting User %d:\n",count);
+		printf("UserID:--%d\nCarID:---%d\nName:---%s\nEmail:----%s\n  Mode:-----%s\n Preference:----%s\n Amount:---%d\n Booking time:--%s",uread.ID,uread.CID,uread.username,uread.useremail,uread.bookingmode,uread.preference,uread.amountpaid,uread.time);
+		printf("Your commission is %f",0.2*uread.amountpaid);
+		if(uread.amountpaid==0)
+		{
+		 printf("\nThis user currently has no rides in progress");
+		}
+		printf("\n\n");
+        count++;
+		}
+		 if(k==5&&ID==uread.ID&&uread.cancel==0)
+		{
+		printf("UserID:--%d\nCarID:---%d\nName:---%s\n Email:----%s\n  Mode:-----%s\n Preference:----%s\n Amount:---%d\n Booking time:--%s",uread.ID,uread.CID,uread.username,uread.useremail,uread.bookingmode,uread.preference,uread.amountpaid,uread.time);
+		printf("Your commission is %f",0.2*uread.amountpaid);
+		if(uread.amountpaid==0)
+		{
+		 printf("\nThis user currently has no rides in progress");
+		}
+		break;
+		}
+    
+	
 
 }
+fclose(fp);
+}
+
 deleteuser(){
-    char name[20];
-    printf("Enter the name of user to cancel the booking: ");
+    int ID;
+    printf("Enter the USER ID whose account you want to cancel\n");
     fflush(stdin);
-    gets(name);
+    scanf("%d",&ID);
     int flag=0;
      FILE* fp;
    fp=fopen("user.bin","rb+");
-	struct User read;
-	while(fread(&read,sizeof(struct User),1,fp)){
-		if (strcmp(read.username,name)==0){
+	struct User Uread;
+	while(fread(&Uread,sizeof(struct User),1,fp)){
+		if (Uread.ID==ID&&Uread.cancel==0){
+		 printf("User Mr:%s has been found\nIf you want to confirm their removal press 1\nIf you want to cancel and go back to main page press any other key\n",Uread.username);
+		 printf("Enter key:  ");
+		 char A;
+         fflush(stdin);
+		 A=getchar();
+		 switch(A)
+		 {
+		case '1':
+		    
             printf("Deleting info....");
-            read.cancel=1;
+            Uread.cancel=1;
             flag=1;
             fseek(fp,-sizeof(struct User),SEEK_CUR);
-            fwrite (&read, sizeof(struct User), 1, fp);
+            fwrite (&Uread, sizeof(struct User), 1, fp);
             break;
+        
+            default:
+		
+		  printf("Rerouting Back to mainpage.....");
+		  sleep(2);
+		  main();
+		  break;
+				
+	}
         }	
+	
+    if (flag==1){
+        printf("\nInfo deleted for User: ");
+        puts(Uread.username);
+        break;
+    }
+
+	
+}
+fclose(fp);
+}
+deletecarowner(){
+	
+	int ID;
+    printf("Enter the ID of the CarOwner you want to delete ");
+    scanf("%d",&ID);
+	fflush(stdin);
+    int flag=0;
+     FILE* fp;
+   fp=fopen("owner.bin","rb+");
+	struct co_info read;
+	while(fread(&read,sizeof(struct co_info),1,fp)){
+		if(read.ID==ID)
+		{
+		 printf("The carowner has been found\nIf you want to confirm their removal press 1\nIf you want to cancel and go back to main page press any other key\n");
+		 printf("Enter key:  ");
+		 char A;
+		 A=getchar();
+		 switch(A)
+		 {
+		case '1':
+		    {
+            printf("Deleting info....");
+            read.rcount=-1;
+            flag=1;
+            fseek(fp,-sizeof(struct co_info),SEEK_CUR);
+            fwrite (&read, sizeof(struct co_info), 1, fp);
+            break;
+        }
+		case '2':
+		{
+		  printf("Rerouting Back to mainpage.....");
+		  sleep(2);
+		  main();
+		  break;
+			}	
 	}
     if (flag==1) {
         printf("Info deleted for User: ");
-        puts(name);
+        puts(read.cname);
     }
 
 	fclose(fp);
 }
-/*deletecarowner(){
-    char name[20];
-    printf("Enter the name of user to cancel the booking: ");
-    fflush(stdin);
-    gets(name);
-    int flag=0;
-     FILE* fp;
-   fp=fopen("user.bin","rb+");
-	struct User read;
-	while(fread(&read,sizeof(struct User),1,fp)){
-		if (strcmp(read.username,name)==0){
-            printf("Deleting info....");
-            read.cancel=1;
-            flag=1;
-            fseek(fp,-sizeof(struct User),SEEK_CUR);
-            fwrite (&read, sizeof(struct User), 1, fp);
-            break;
-        }	
-	}
-    if (flag==1) {
-        printf("Info deleted for User: ");
-        puts(name);
-    }
-
-	fclose(fp);
-}*/
-
+}
+}
 int login(){
     system("cls");
     char adminemail[100],adminpass[100];
@@ -1383,13 +1553,107 @@ void SetColorAndBackground(int ForgC, int BackC)
 }
 
 //Rating
-void rating(void)
+
+//struct User
+//{
+//	int ID;
+//	char username[20];
+//	char useremail[200];
+//	char password[20];
+//	char bookingmode[20];
+//	char time[200];
+//	char preference[200];
+//	int amountpaid;
+//	int cancel;
+//	int CID;
+//};
+
+    struct CO_idpass{
+	char cname[100];
+	char email[100];
+	char password[100];
+	int ID};
+int rating(int var)
 {
-	int num,sal=10000;
-	
+	system("cls");
 	printf("\t\t\t\t\tWelcome to the rating page\n");
     printf("\t\t\t\t---------------------------------\n");
+	
+	struct co_info ci;
+	struct CO_idpass co;	
+	struct User P;
+	int comp;
+	char opt;
+	int com;
 
+	FILE *fp;
+	
+	fp=fopen("owner.bin","rb");
+	printf("You can only choose from the CID's below: \n");
+	int z=0;
+	while(fread(&ci,sizeof(struct co_info),1,fp))
+	{
+		if(var==ci.ID)
+		{
+			printf("|%d|\t",ci.CID);
+			z=1;
+		}
+	}
+	fclose(fp);
+	
+	if(z==0)
+	{
+		printf("\nSorry! You haven't rented any car yet so we couldn't find any record''");
+	}
+			
+	printf("\nEnter the car ID regarding which you have complain : ");
+	scanf("%d",&comp);
+
+	
+
+	fp=fopen("user.bin","rb");
+	
+	
+	while(fread(&P,sizeof(struct User),1,fp))
+	{
+		if(comp==P.CID)
+		{
+			printf("Displaying User Information. Please wait....\n");
+
+	sleep(2);
+	printf("\n\t\t\t\tUser Information:\n");
+	printf("\t\t---------------------------------------------\n");
+	
+	printf("\t\t| Name of Customer:-------------------------- %s\n",P.username);
+
+	printf("\t\t| Mode of Booking :------------ %s\n",P.bookingmode);
+	
+	printf("\t\t| Preference:--------- %s\n",P.preference);
+
+	printf("\t\t---------------------------------------------\n");	
+	
+	printf("\t\t| Amount Paid By Customer:------ %d\n",P.amountpaid);
+	
+	com=P.amountpaid*0.2;
+	
+	printf("\t\t| Admin Commision:----- %d\n",com);	
+		
+	printf("\t\t| Amount CarOwner receive:----- %d\n",P.amountpaid-com);
+	
+    printf("\t\t| Date of Issuance:----- %s\n",P.time);
+	
+	printf("\t\t---------------------------------------------\n");
+	sleep(2);
+}	
+			
+			
+		}
+	
+	
+	int num,sal;
+	
+	sal=(P.amountpaid-com);
+	printf("SAl: %d",sal);
 	
 	printf("\n\n\nplease rate the user under the following criteria:\n\n\npress 5 if user didn't harm your car at all\npress 4 if there is slight scratch\npress 3 if there is a noticeable harm to the car\npress 2 if any major part of your car is broken or missing\npress 1 if your car has crushed from any side : ");
 	scanf("%d",&num);
@@ -1397,34 +1661,62 @@ void rating(void)
 	if(num==5)
 	{
 		printf("\nThank you for your rating.\nwe hope your car's condition is all fine\n");
-		printf("Your payment is : %d.\n\nHave a nice day",sal);
+		printf("Your  is : %d.\n\nHave a nice day",sal);
 	}
 	else if(num==4)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA slight scratch cost 1000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+1000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	} 
 	else if(num==3)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA noticeable harm cost 3000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+3000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	} 
-	if(num==2)
+	else if(num==2)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA major or minor part missing issue cost 7000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+7000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	}
-	if(num==1)
+	else if(num==1)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nWe are sorry for such huge harm,rupees 10000 maintainance charges will be add to your earning\n");
 		sal=sal+10000;
 		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	}
-
+	
+	else
+	{
+		printf("Please choose from numbers 1-5 only\n");
+	}
+	printf("\t\t Thank You for Viewing\n");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	
+	
+	return 0;
+	
 }
+
 
 
 
@@ -1433,9 +1725,12 @@ void rating(void)
 	
 int renting(var)
 {
+	struct CO_idpass co;
 	struct co_info ci;
 	int car=0,c;
+	int pref;
 	int *p;
+	char opt;
 	
 	FILE *fp;
 
@@ -1484,20 +1779,54 @@ int renting(var)
 	scanf("%d/%d/%d",&ci.de,&ci.me,&ci.ye);
 	fflush(stdin);
 	day(ci.de,ci.me,ci.ye);
-	printf("Please specify the purpose of renting your car,that is :\n1) for every day use\n2) for wedding purpose\n3) for long drive\nKindly enter enter the purpose from above mentioned options only :");
-	gets(ci.purpose);
-	if (strcmp(ci.purpose,"2")==0) {
+	printf("Enter the seating capacity of car: ");
+	scanf("%d",&ci.seats);
+	printf("Enter the renting price of your car: ");
+	scanf("%d",&ci.price);
+	printf("Please specify the purpose of renting your car,that is :\nPress 1 for every day use\nPress 2 for wedding purpose\nPress 3 for long drive\nKindly enter enter the purpose from above mentioned options only :");
+	scanf("%d",&pref);
+	if(pref==1)
+	{
+		strcpy(ci.purpose,"Everyday");
+	}
+	if(pref==2)
+	{
 		strcpy(ci.purpose,"Wedding");
 	}
+	if(pref==3)
+	{
+		strcpy(ci.purpose,"Long Drive");
+	}		
+
+	
 	ci.flag=0;
-	ci.rcount=1;
+	ci.rcount=0;
 
     fwrite(&ci,sizeof(struct co_info),1,fp);    
     fclose(fp);
-    
-    
+    printf("\n\t Thankyou for viewing");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	    
     
 }
+
 
 //payment
 
@@ -1623,7 +1952,28 @@ while(fread(&P,sizeof(struct User),1,fp))
 
 fclose(fp);
 }
-
+char opt;
+printf("\t\t Thank You for Viewing\n");
+printf("\nFor returning back to main menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		system("cls");
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}
 free(p);
 free(k);
 }
@@ -1689,7 +2039,9 @@ void invoiceC(struct User P)
 record(var)
 {
 	//struct co_info ci;
+	struct CO_idpass co;
 	int car=0,c=0;
+	char opt;
 	struct co_info ci;
 	int *p;
 	
@@ -1724,20 +2076,39 @@ record(var)
 }
 }
 	fclose(fp);
+	printf("\t\t Thank You for Viewing\n");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
 	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	
 }
 	
 	 
 
 //ID and password
 
-struct CO_idpass{
-	char cname[100];
-	char email[100];
-	char password[100];
-	int ID;
+//struct CO_idpass{
+//	char cname[100];
+//	char email[100];
+//	char password[100];
+//	int ID;
 
-};
+//};
 menu(struct CO_idpass co)
 {
 		
@@ -1779,7 +2150,7 @@ menu(struct CO_idpass co)
 		printf("Rating page opening");
 		sleep(2);
 		system("cls");
-		rating();
+		rating(var);
 	}
 	if(n==4)
 	{
@@ -1794,7 +2165,7 @@ menu(struct CO_idpass co)
 
 
 int main()
-{	
+{	ClearConsoleToColors(15, 4);
 	fflush(stdin);
 	while(1){
 	
@@ -1928,6 +2299,13 @@ int main()
 		break;
 		
 }
+	case 3:
+	{
+		printf("Invalid value");
+		printf("\nRe-directing to main page...");
+		sleep(2);
+		main();
+	}
 	}
 	if (flag>=3)
 	{
@@ -2030,7 +2408,9 @@ int main()
 	  default:
 	  	{
 	  	 printf("Invalid character entered");
-	  	 return 0;
+	  		printf("\nRe-directing to mainpage..");
+			  sleep(1);
+			  main();
 		  }
 	}
   system("cls");
@@ -2044,20 +2424,23 @@ int main()
   strcpy(choice,"Everyday");
   p1=everyday(user,price,choice);
   }
-  if(x==2)
+  else if(x==2)
   {
   strcpy(choice,"Wedding");
   p2=wedding(user,price,choice);
   }
-  if(x==3)
+  else if(x==3)
   {
   strcpy(choice,"Long Drive");
   p3=longdrive(user,price,choice);
   }
-  if(x==4)
-  {
-   main();
+  else{
+	  printf("invalid key entered\n");
+	  printf("Re-directing to main page....");
+	  sleep(1);
+	  main();
   } 
+  
   
   sleep(2);
   price=price+p1+p2+p3;
@@ -2067,19 +2450,23 @@ int main()
 	struct User de;
 	invoice(j,x,price,ptr);
 	payment(price);
-	
+
     FILE* fptr;
 	FILE* fp;
 	fptr=fopen("user.bin","ab");
 	fwrite (&user, sizeof(struct User), 1, fptr);
 	fclose(fptr);
+	fflush(stdin);
+	printf("\tBooking Done\n\tRedirecting to main page");
+	sleep(3);
+	main();
 		  }
 	case 2:
 		{
-		  ClearConsoleToColors(15, 4);
+		  
 	system("cls");
-	printf("*************************************************************************************\n*");
-	printf("\t\t\t\t\tWelcome to Car Owner Section\t\t    *\n*");
+	
+	printf("\t\t\t\t\tWelcome to Car Owner Section\t\t    \n*");
 	printf("\t\t\t\t\t----------------\n");
 	printf("\t\t\t\t\tSignup page     \n");
 	printf("\t\t\t\t\t-----------------");
@@ -2207,15 +2594,18 @@ int main()
 	 if (login()!=1) exit(1);
     while (1){
     
-    int choice;
-    printf("\nPress 1 if you want to display all users");
-    printf("\nPress 2 to display all car owners\n");
-    scanf("%d",&choice);
+    char choice;
+    printf("\nPress 1 if you want to display all bookings");
+    printf("\nPress 2 to display all car records\n");
+	printf("\nPress any key to logout\n");
+	fflush(stdin);
+    scanf("%c",&choice);
+	int cnclbook;
     switch (choice)
     {
-    case 1:
+    case '1':
         displayusers();
-        int cnclbook;
+        
         printf("\nDo you want to cancel a booking?\n");
         printf("Press 1 for cancelling\n");
         scanf("%d",&cnclbook);
@@ -2223,14 +2613,24 @@ int main()
 
         break;
     
-    case 2:
+    case '2':
         displaycarowner();
+		
+        printf("\nDo you want to cancel a booking?\n");
+        printf("Press 1 for cancelling\n");
+        scanf("%d",&cnclbook);
+        if (cnclbook==1) deletecarowner();
         break;
     default:
+		printf("Logging you out...");
+		printf("\nRedirecting to main page");
+		sleep(2);
+		main();
         break;
     }
 
     }
+
 		  break;
 		}
 	default:
@@ -2240,6 +2640,7 @@ int main()
 	   }
   }
   printf("\nPress any key to logout...");
+  fflush(stdin);
   getch();
 	}
   }
