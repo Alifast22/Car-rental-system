@@ -1,9 +1,9 @@
-# Car-rental-system
+# **Car-rental-system**
 
-Goal:
+## **Goal**:
 A platform which will provide a gateway for car owners aiming to rent out their cars to potential customers looking to rent cars for a certain amount of time.
 ____________________________________________________________________________________
-Description:
+## **Description**:
 There are 3 main users in the application, the car owner, the admin and the customer. The admin will act as a middle man between the car owner and the customer, and their task will be to verify both parties involved and to handle all the logistics involved between them. 
 
   - ## Admin
@@ -33,8 +33,8 @@ There are 3 main users in the application, the car owner, the admin and the cust
       •	Will register and provide information for first time, otherwise log in and password.
       •	Time when car checked out
       •	Modes of booking. 
-            - Emergency booking
-            - Normal booking 
+            1- Emergency booking
+            2- Normal booking 
       •	Will specify time for booking, if time is above a certain period, discounts will be provided.
       •	Modes of payment. Card or Cash.
       •	Print receipt whose details will be passed along to admin and car owner.
@@ -43,5 +43,6 @@ There are 3 main users in the application, the car owner, the admin and the cust
       •	Admin will browse according to his preferences in categories of long routes, everyday, weddings.
       •	Wedding decoration preferences will be provided by user.
       •	User will enter rough estimate of kilometers. (Price and discounted on the distance need)
-
+____________________________________________________________________________________
+## Built using C
 ## All modules combined together in a single file named "wheels4wheels.c"
