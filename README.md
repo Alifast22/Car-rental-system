@@ -1,4 +1,4 @@
-# **Car-rental-system**
+# *Car-rental-system*
 
 ## **Goal**:
 A platform which will provide a gateway for car owners aiming to rent out their cars to potential customers looking to rent cars for a certain amount of time.
