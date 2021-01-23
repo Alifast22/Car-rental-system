@@ -13,7 +13,7 @@ There are 3 main users in the application, the car owner, the admin and the cust
 # List of Features:
 ## Car-Owner
 
-      • Account to login, if he is already registered, otherwise login with ID and password.
+      •     Account to login, if he is already registered, otherwise login with ID and password.
       •	Vehicle documentation papers and information.
       •	Time duration regarding availability of Vehicle.
       •	Payment will be transferred to Car Owner by Admin after Admin’s commission deduction.
