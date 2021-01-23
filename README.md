@@ -44,5 +44,4 @@ There are 3 main users in the application, the car owner, the admin and the cust
       •	Wedding decoration preferences will be provided by user.
       •	User will enter rough estimate of kilometers. (Price and discounted on the distance need)
 
-
-
+## All modules combined together in a single file named "wheels4wheels.c"
