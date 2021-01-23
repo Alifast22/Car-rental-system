@@ -68,13 +68,87 @@ void SetColorAndBackground(int ForgC, int BackC)
 }
 
 //Rating
-void rating(void)
+void rating(int var)
 {
-	int num,sal=10000;
-	
+	system("cls");
 	printf("\t\t\t\t\tWelcome to the rating page\n");
     printf("\t\t\t\t---------------------------------\n");
+	
+	struct co_info ci;
+	struct CO_idpass co;	
+	struct User P;
+	int comp;
+	char opt;
+	int com;
 
+	FILE *fp;
+	
+	fp=fopen("owner.bin","rb");
+	printf("You can only choose from the CID's below: \n");
+	int z=0;
+	while(fread(&ci,sizeof(struct co_info),1,fp))
+	{
+		if(var==ci.ID)
+		{
+			printf("|%d|\t",ci.CID);
+			z=1;
+		}
+	}
+	fclose(fp);
+	
+	if(z==0)
+	{
+		printf("\nSorry! You haven't rented any car yet so we couldn't find any record''");
+	}
+			
+	printf("\nEnter the car ID regarding which you have complain : ");
+	scanf("%d",&comp);
+
+	
+
+	fp=fopen("user.bin","rb");
+	
+	
+	while(fread(&P,sizeof(struct User),1,fp))
+	{
+		if(comp==P.CID)
+		{
+			printf("Displaying User Information. Please wait....\n");
+
+	sleep(2);
+	printf("\n\t\t\t\tUser Information:\n");
+	printf("\t\t---------------------------------------------\n");
+	
+	printf("\t\t| Name of Customer:-------------------------- %s\n",P.username);
+
+	printf("\t\t| Mode of Booking :------------ %s\n",P.bookingmode);
+	
+	printf("\t\t| Preference:--------- %s\n",P.preference);
+
+	printf("\t\t---------------------------------------------\n");	
+	
+	printf("\t\t| Amount Paid By Customer:------ %d\n",P.amountpaid);
+	
+	com=P.amountpaid*0.2;
+	
+	printf("\t\t| Admin Commision:----- %d\n",com);	
+		
+	printf("\t\t| Amount CarOwner receive:----- %d\n",P.amountpaid-com);
+	
+    printf("\t\t| Date of Issuance:----- %s\n",P.time);
+	
+	printf("\t\t---------------------------------------------\n");
+	sleep(2);
+}	
+			
+			
+		}
+	
+	
+	int num,sal;
+	
+	sal=(P.amountpaid-com);
+	printf("SAl: %d",sal);
 	
 	printf("\n\n\nplease rate the user under the following criteria:\n\n\npress 5 if user didn't harm your car at all\npress 4 if there is slight scratch\npress 3 if there is a noticeable harm to the car\npress 2 if any major part of your car is broken or missing\npress 1 if your car has crushed from any side : ");
 	scanf("%d",&num);
@@ -82,33 +156,60 @@ void rating(void)
 	if(num==5)
 	{
 		printf("\nThank you for your rating.\nwe hope your car's condition is all fine\n");
-		printf("Your payment is : %d.\n\nHave a nice day",sal);
+		printf("Your  is : %d.\n\nHave a nice day",sal);
 	}
 	else if(num==4)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA slight scratch cost 1000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+1000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	} 
 	else if(num==3)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA noticeable harm cost 3000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+3000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	} 
-	if(num==2)
+	else if(num==2)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nA major or minor part missing issue cost 7000 Rupees maintainance charges which we will add to your earning\n");
 		sal=sal+7000;
-		printf("\nYour payment is : %d.\n\nHave a nice day",sal);
+		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	}
-	if(num==1)
+	else if(num==1)
 	{
 		printf("\nThank you for your rating\nwe have acknowledged your concern.\nWe are sorry for such huge harm,rupees 10000 maintainance charges will be add to your earning\n");
 		sal=sal+10000;
 		printf("\nYour earning is : %d.\n\nHave a nice day",sal);
 	}
-
+	
+	else
+	{
+		printf("Please choose from numbers 1-5 only\n");
+	}
+	printf("\t\t Thank You for Viewing\n");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	
+	
+	return 0;
+	
 }
 
 
@@ -137,11 +238,16 @@ void rating(void)
     int CID;
 	};
 	
+//Renting
+	
 int renting(var)
 {
+	struct CO_idpass co;
 	struct co_info ci;
 	int car=0,c;
+	int pref;
 	int *p;
+	char opt;
 	
 	FILE *fp;
 
@@ -190,18 +296,51 @@ int renting(var)
 	scanf("%d/%d/%d",&ci.de,&ci.me,&ci.ye);
 	fflush(stdin);
 	day(ci.de,ci.me,ci.ye);
-	printf("Please specify the purpose of renting your car,that is :\n1) for every day use\n2) for wedding purpose\n3) for long drive\nKindly enter enter the purpose from above mentioned options only :");
-	gets(ci.purpose);
-	if (strcmp(ci.purpose,"2")==0) {
+	printf("Enter the seating capacity of car: ");
+	scanf("%d",&ci.seats);
+	printf("Enter the renting price of your car: ");
+	scanf("%d",&ci.price);
+	printf("Please specify the purpose of renting your car,that is :\nPress 1 for every day use\nPress 2 for wedding purpose\nPress 3 for long drive\nKindly enter enter the purpose from above mentioned options only :");
+	scanf("%d",&pref);
+	if(pref==1)
+	{
+		strcpy(ci.purpose,"Everyday");
+	}
+	if(pref==2)
+	{
 		strcpy(ci.purpose,"Wedding");
 	}
+	if(pref==3)
+	{
+		strcpy(ci.purpose,"Long Drive");
+	}		
+
+	
 	ci.flag=0;
-	ci.rcount=1;
+	ci.rcount=0;
 
     fwrite(&ci,sizeof(struct co_info),1,fp);    
     fclose(fp);
-    
-    
+    printf("\n\t Thankyou for viewing");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	    
     
 }
 
@@ -221,7 +360,7 @@ struct User
 	int CID;
 };
 
-int payment(var)
+int paymentC(var)
 {
  struct User P;	
  struct  co_info ci;
@@ -323,7 +462,7 @@ while(fread(&P,sizeof(struct User),1,fp))
 {
 			if(*(k+i)==*(p+j) )
 			{
-				invoice(P);
+				invoiceC(P);
 			
 //        	printf("\nUser ID is: %d\n",P.ID);
 //			printf("User email is: %s\n",P.useremail);
@@ -342,14 +481,36 @@ while(fread(&P,sizeof(struct User),1,fp))
 
 fclose(fp);
 }
-
+char opt;
+printf("\t\t Thank You for Viewing\n");
+printf("\nFor returning back to main menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
+	
+	if(opt=='Y' || opt=='y')
+	{
+		system("cls");
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}
 free(p);
 free(k);
 }
 
 
 
-void invoice(struct User P)
+
+void invoiceC(struct User P)
 {
 	
 	//struct User P;
@@ -384,8 +545,6 @@ void invoice(struct User P)
 }
 
 
-
-
 //Record
 
 //	struct co_info{
@@ -408,7 +567,9 @@ void invoice(struct User P)
 record(var)
 {
 	//struct co_info ci;
+	struct CO_idpass co;
 	int car=0,c=0;
+	char opt;
 	struct co_info ci;
 	int *p;
 	
@@ -443,10 +604,28 @@ record(var)
 }
 }
 	fclose(fp);
+	printf("\t\t Thank You for Viewing\n");
+   	printf("For returning back to menu press Y\nFor Returning exiting the program press N\n");
+	scanf(" %c",&opt);
 	
+	if(opt=='Y' || opt=='y')
+	{
+		main();
+	}
+	else if(opt=='N' || opt=='n')
+	{
+		exit(1);
+	}
+	
+	else
+	{
+		printf("You haven't press the right key so the program is exiting\n");
+		printf("Loading...");
+		sleep(1);
+		exit(1);
+	}	
 }
 	
-	 
 
 //ID and password
 
@@ -457,6 +636,59 @@ struct CO_idpass{
 	int ID;
 
 };
+menu(struct CO_idpass co)
+{
+		
+	int n,car=0;
+
+	
+	system("cls");
+	printf("\t\t\t\t\tWelcome to the main menu\n");
+	printf("\t\t\t\t\t------------------------\n");
+	printf("\n\n\n1)Renting Car\n2)Record\n3)Rate the user\n4)Payment details\n");
+	printf("\n\n\nPress 1 if you want to visit Renting Car page");
+	printf("\nPress 2 if you want to see your record: ");
+	printf("\nPress 3 if you want to rate the user: ");
+	printf("\nPress 4 if you want to see your payment details: ");
+		
+	scanf("%d",&n);
+	fflush(stdin);
+	int var;
+	var=co.ID;
+	if(n==1)
+	{
+		printf("Renting car page loading...");
+		sleep(2);
+		system("cls");	    
+	    renting(var);
+	}
+	
+	if(n==2)
+	{
+		printf("Record page loading...");
+		sleep(2);
+		system("cls");
+		record(var);
+		
+		
+	}
+	if(n==3)
+	{
+		printf("Rating page opening");
+		sleep(2);
+		system("cls");
+		rating(var);
+	}
+	if(n==4)
+	{
+		printf("Payment page opening");
+		sleep(2);
+		system("cls");
+		paymentC(var);
+	}
+}
+
+
 
 int main()
 {
@@ -622,13 +854,13 @@ menu(struct CO_idpass co)
 		printf("Rating page opening");
 		sleep(2);
 		system("cls");
-		//rating();
+		rating(var);
 	}
 	if(n==4)
 	{
 		printf("Payment page opening");
 		sleep(2);
 		system("cls");
-		payment(var);
+		paymentC(var);
 	}
 }
