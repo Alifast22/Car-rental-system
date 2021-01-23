@@ -11,15 +11,15 @@ Actors/System User(s):
 
 List of Features:
 
-1.	CAR OWNER:  
-      •	Account to login, if he is already registered, otherwise login with ID and password.
-      •	Vehicle documentation papers and information.
-      •	Time duration regarding availability of Vehicle.
-      •	Payment will be transferred to Car Owner by Admin after Admin’s commission deduction.
-      •	If car owner has provided his cars more times than he will get more 20 percent more profit after every 10 rides.
-      •	Review based system, if user is unsatisfactory than admin will provide money and deduct it from user.
-      •	Booking cancellation, provide reason.
-      •	Car owner will specify car as long route, everyday , weddings (car will be provided along with all the arrangements and charge it directly from user) etc.
+* 1.	CAR OWNER:  
+      *	Account to login, if he is already registered, otherwise login with ID and password.
+      *	Vehicle documentation papers and information.
+      *	Time duration regarding availability of Vehicle.
+      *	Payment will be transferred to Car Owner by Admin after Admin’s commission deduction.
+      *	If car owner has provided his cars more times than he will get more 20 percent more profit after every 10 rides.
+      *	Review based system, if user is unsatisfactory than admin will provide money and deduct it from user.
+      *	Booking cancellation, provide reason.
+      *	Car owner will specify car as long route, everyday , weddings (car will be provided along with all the arrangements and charge it directly from user) etc.
 
 
 
